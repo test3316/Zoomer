@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
+import NavButton from "./NavButton";
 
-const Header = () => {
-  const [input, setInput] = useState("");
+const Header = (props) => {
+  const [click, setClick] = useState("");
   const [popularSearch, setPopularSearch] = useState([]);
+  const [hide, setHide] = useState(false);
 
   async function logMovies() {
     const response = await fetch(
@@ -15,10 +17,12 @@ const Header = () => {
 
   useEffect(() => {
     logMovies();
-  }, [input]);
+  }, []);
 
-  const inputButton = (e) => {
-    setInput(e.target.value);
+  const onClickInput = () => {
+    console.log(Object.entries(popularSearch.popularSearches));
+    setHide(!hide);
+    console.log(hide);
   };
 
   return (
@@ -29,12 +33,12 @@ const Header = () => {
             <h4>*7007 / +995 (32) 2 60 30 60</h4>
           </div>
           <div className="flex text-[rgb(249,204,188)] font-bold	 text-[12px] cursor-pointer space-x-3 mr-2 ">
-            <h4 className="hover:text-white">სავაჭრო პოლიტიკა</h4>
-            <h4 className="hover:text-white"> განვადება</h4>
-            <h4 className="hover:text-white">კარიერა</h4>
-            <h4 className="hover:text-white">Trade In</h4>
-            <h4 className="hover:text-white">ფილიალები</h4>
-            <h4 className="hover:text-white">ყველა აქცია</h4>
+            <NavButton title="სავაჭრო პოლიტიკა" />
+            <NavButton title="განვადება" />
+            <NavButton title="კარიერა" />
+            <NavButton title="Trade In" />
+            <NavButton title="ფილიალები" />
+            <NavButton title="ყველა აქცია" />
           </div>
         </div>
         <div className="flex align-middle bg-[rgb(238,236,236)] h-[70px]">
@@ -59,7 +63,7 @@ const Header = () => {
                 type="text"
                 className="w-[460px] h-[44px] m-auto rounded-[13px]	outline-none border border-orange-500 placeholder:italic placeholder:text-sm pl-[45px] pb-1 shadow-lg	"
                 placeholder="ძიება"
-                onChange={inputButton}
+                onClick={onClickInput}
               />
             </div>
             <div className="flex ml-5">
@@ -72,13 +76,23 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div>
-          {Object.values(popularSearch).map((e) => {
-            console.log([e][0][0]);
-          })}
-        </div>
-        <div></div>
       </div>
+
+      {hide && (
+        <div
+          className={`flex-row delay-1000 bg-red-700  rounded-[20px] w-[600px] justify-center items-center m-auto p-[25px]`}
+        >
+          {" "}
+          <div className="flex flex-wrap justify-center">
+            {popularSearch.popularSearches &&
+              Object?.entries(popularSearch.popularSearches)?.map(
+                ([key, value]) => (
+                  <button className="delay-75	p-2 m-1 rounded-[20px] text-sm bg-[rgb(242,242,242)]">{`${value}`}</button>
+                )
+              )}
+          </div>
+        </div>
+      )}
     </>
   );
 };
