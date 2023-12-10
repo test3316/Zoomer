@@ -1,38 +1,42 @@
 import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import NavButton from "./NavButton";
+import { BiSolidPhoneCall } from "react-icons/bi";
+import { LuBaggageClaim } from "react-icons/lu";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 const Header = (props) => {
-  const [click, setClick] = useState("");
   const [popularSearch, setPopularSearch] = useState([]);
   const [hide, setHide] = useState(false);
 
-  async function logMovies() {
+  async function popular() {
     const response = await fetch(
       "https://api.zoommer.ge/v1/Products/get-popular-searches"
     );
-    const movies = await response.json();
-    setPopularSearch(movies);
+    const popular = await response.json();
+    setPopularSearch(popular);
   }
 
   useEffect(() => {
-    logMovies();
+    popular();
   }, []);
 
   const onClickInput = () => {
-    console.log(Object.entries(popularSearch.popularSearches));
     setHide(!hide);
-    console.log(hide);
   };
 
   return (
     <>
       <div className="flex-row">
         <div className="flex bg-[rgb(236,94,42)] w-[100%] h-[40px] justify-between items-center overflow-hidden">
-          <div className="flex text-white  text-[12px]  cursor-pointer ml-2 font-bold">
+          <div className="flex text-white  text-[12px]  cursor-pointer ml-[15px] font-bold">
+            <div className="flex justify-center items-center bg-[rgb(251,223,212)] w-[20px] h-[20px] rounded-sm mr-2">
+              <BiSolidPhoneCall size={13} style={{ color: "rgb(236,94,42)" }} />
+            </div>
+
             <h4>*7007 / +995 (32) 2 60 30 60</h4>
           </div>
-          <div className="flex text-[rgb(249,204,188)] font-bold	 text-[12px] cursor-pointer space-x-3 mr-2 ">
+          <div className="flex text-[rgb(249,204,188)] font-bold	 text-[12px] cursor-pointer space-x-3 mr-3 ">
             <NavButton title="სავაჭრო პოლიტიკა" />
             <NavButton title="განვადება" />
             <NavButton title="კარიერა" />
@@ -42,7 +46,7 @@ const Header = (props) => {
           </div>
         </div>
         <div className="flex align-middle bg-[rgb(238,236,236)] h-[70px]">
-          <div className="flex align-middle w-[151px]  items-center ml-2">
+          <div className="flex align-middle w-[151px] h-[30px] m-auto items-center ml-[15px]">
             <img src="https://zoommer.ge/icons/main-logo.svg" />
           </div>
           <div className="flex align-middle ml-3 bg-[rgb(236,94,42)] w-[130px] h-[40px] rounded-[8px] justify-center text-[14px] mr-3 m-auto">
@@ -67,11 +71,17 @@ const Header = (props) => {
               />
             </div>
             <div className="flex ml-5">
-              <button className="bg-white w-[130px] h-[44px] rounded-[8px] m-auto shadow-lg	">
-                კალათა
+              <button className="  bg-white w-[130px] h-[44px] rounded-[8px] m-auto shadow-lg	text-[15px]">
+                <div className="flex items-center justify-around ml-[4px] mr-[8px]">
+                  <LuBaggageClaim size={20} />
+                  კალათა
+                </div>
               </button>
-              <button className="bg-white w-[130px] h-[44px] rounded-[8px] m-auto shadow-lg	ml-5">
-                შესვლა
+              <button className="bg-white w-[130px] h-[44px] rounded-[8px] m-auto shadow-lg	ml-5 mr-5 text-[15px]">
+                <div className="flex items-center justify-around ml-[4px] mr-[8px] ">
+                  <FaRegCircleUser size={20} />
+                  შესვლა
+                </div>
               </button>
             </div>
           </div>
@@ -80,14 +90,13 @@ const Header = (props) => {
 
       {hide && (
         <div
-          className={`flex-row delay-1000 bg-red-700  rounded-[20px] w-[600px] justify-center items-center m-auto p-[25px]`}
+          className={`flex flex-row absolute delay-1000 bg-white  rounded-[20px] w-[600px] justify-center items-center p-[20px] ml-[300px]`}
         >
-          {" "}
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center items-center">
             {popularSearch.popularSearches &&
               Object?.entries(popularSearch.popularSearches)?.map(
                 ([key, value]) => (
-                  <button className="delay-75	p-2 m-1 rounded-[20px] text-sm bg-[rgb(242,242,242)]">{`${value}`}</button>
+                  <button className="p-2 m-1 rounded-[20px] text-sm bg-[rgb(242,242,242)]">{`${value}`}</button>
                 )
               )}
           </div>
