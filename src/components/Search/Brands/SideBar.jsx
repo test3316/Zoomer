@@ -1,12 +1,11 @@
 import SideBarCheckBox from "./SideBarCheckBox";
 
-const Brands = () => {
+const SideBar = () => {
   return (
     <>
       <SideBarCheckBox category="ბრენდი" />
-      <SideBarCheckBox category="გამოშვების" />
     </>
   );
 };
 
-export default Brands;
+export default SideBar;

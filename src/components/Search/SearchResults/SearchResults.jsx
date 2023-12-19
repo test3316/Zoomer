@@ -59,16 +59,18 @@ const SearchResults = () => {
             </div>
           </div>
         ))}
+
         <div className="flex">
-          {paginationArray().map((page, index) => (
-            <div
-              onClick={() => showMoreHandler(page)}
-              key={index}
-              className="flex w-[30px] h-[30px] justify-center items-center bg-[rgb(242,242,242)] font-semibold text-[12px] ml-1 mt-5 mb-5"
-            >
-              <div>{page}</div>
-            </div>
-          ))}
+          {homePageFetched.length > 0 &&
+            paginationArray().map((page, index) => (
+              <div
+                onClick={() => showMoreHandler(page)}
+                key={index}
+                className="flex w-[30px] h-[30px] justify-center items-center bg-[rgb(242,242,242)] font-semibold text-[12px] ml-1 mt-5 mb-5"
+              >
+                <div>{page}</div>
+              </div>
+            ))}
         </div>
       </div>
     </>

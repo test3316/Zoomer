@@ -1,7 +1,5 @@
-import SideBarCheckBox from "../Brands/SideBarCheckBox";
 import SideBar from "../Brands/SideBar";
 import SearchPriceInput from "./SearchPriceInput";
-SideBarCheckBox;
 const Mobiles = () => {
   return (
     <>

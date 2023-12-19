@@ -10,19 +10,6 @@ axios;
 const Header = () => {
   const [hide, setHide] = useState(false);
 
-  const popular = () => {
-    axios
-      .get(
-        "https://api.zoommer.ge/v1/Products/v3?CategoryId=855&Page=1&Limit=60"
-      )
-      .then((res) => console.log(res.data.products))
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    popular();
-  }, [hide]);
-
   const onClickInput = () => {
     setHide(!hide);
   };
