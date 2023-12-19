@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+Link;
 const Nav = (props) => {
   return (
     <>
@@ -5,9 +8,9 @@ const Nav = (props) => {
         <div className="flex justify-center items-center mr-3">
           {props.icon}
         </div>
-        <a to="/" className="flex text-[12px] ">
+        <Link to={props.link} className="flex text-[12px] ">
           {props.category}
-        </a>
+        </Link>
       </div>
     </>
   );

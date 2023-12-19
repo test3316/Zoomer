@@ -4,22 +4,24 @@ import NavButton from "./NavButton";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { LuBaggageClaim } from "react-icons/lu";
 import { FaRegCircleUser } from "react-icons/fa6";
+import axios from "axios";
+axios;
 
-const Header = (props) => {
-  const [popularSearch, setPopularSearch] = useState([]);
+const Header = () => {
   const [hide, setHide] = useState(false);
 
-  async function popular() {
-    const response = await fetch(
-      "https://api.zoommer.ge/v1/Products/get-popular-searches"
-    );
-    const popular = await response.json();
-    setPopularSearch(popular);
-  }
+  const popular = () => {
+    axios
+      .get(
+        "https://api.zoommer.ge/v1/Products/v3?CategoryId=855&Page=1&Limit=60"
+      )
+      .then((res) => console.log(res.data.products))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     popular();
-  }, []);
+  }, [hide]);
 
   const onClickInput = () => {
     setHide(!hide);
@@ -28,7 +30,7 @@ const Header = (props) => {
   return (
     <>
       <div className="flex-row">
-        <div className="flex bg-[rgb(236,94,42)] w-[100%] h-[40px] justify-between items-center overflow-hidden">
+        <div className="flex bg-[rgb(236,94,42)] w-[100%] h-[40px] justify-between items-center overflow-hidden xl:justify-around">
           <div className="flex text-white  text-[12px]  cursor-pointer ml-[15px] font-bold">
             <div className="flex justify-center items-center bg-[rgb(251,223,212)] w-[20px] h-[20px] rounded-sm mr-2">
               <BiSolidPhoneCall size={13} style={{ color: "rgb(236,94,42)" }} />
@@ -45,15 +47,15 @@ const Header = (props) => {
             <NavButton title="ყველა აქცია" />
           </div>
         </div>
-        <div className="flex align-middle bg-[rgb(238,236,236)] h-[70px]">
-          <div className="flex align-middle w-[151px] h-[30px] m-auto items-center ml-[15px]">
+        <div className="flex align-middle justify-center bg-[rgb(238,236,236)] h-[70px]">
+          <div className="flex w-[151px] h-[30px] m-auto items-center ml-[15px]">
             <img src="https://zoommer.ge/icons/main-logo.svg" />
           </div>
-          <div className="flex align-middle ml-3 bg-[rgb(236,94,42)] w-[130px] h-[40px] rounded-[8px] justify-center text-[14px] mr-3 m-auto">
+          <div className="flex items-center ml-3 bg-[rgb(236,94,42)] w-[130px] h-[40px] rounded-[8px] justify-center text-[14px] mr-3 m-auto">
             <div className="flex w-[20px] ">
               <img src="https://zoommer.ge/icons/dots.svg" alt="" />
             </div>
-            <div className="flex align-middle ml-2 font-bold text-white shadow-lg	">
+            <div className="flex align-middle ml-2 font-bold text-white ">
               <button>ნავიგაცია</button>
             </div>
           </div>
@@ -87,21 +89,6 @@ const Header = (props) => {
           </div>
         </div>
       </div>
-
-      {hide && (
-        <div
-          className={`flex flex-row absolute delay-1000 bg-white  rounded-[20px] w-[600px] justify-center items-center p-[20px] ml-[300px]`}
-        >
-          <div className="flex flex-wrap justify-center items-center">
-            {popularSearch.popularSearches &&
-              Object?.entries(popularSearch.popularSearches)?.map(
-                ([key, value]) => (
-                  <button className="p-2 m-1 rounded-[20px] text-sm bg-[rgb(242,242,242)]">{`${value}`}</button>
-                )
-              )}
-          </div>
-        </div>
-      )}
     </>
   );
 };

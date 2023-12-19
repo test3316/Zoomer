@@ -1,7 +1,9 @@
 import Header from "./components/Header/Header";
 import SideBarSlider from "./components/SideBarAndSlider/SideBarSlider";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Search from "./components/Search/Search";
+import { Routes, Route } from "react-router-dom";
+import Test from "./Test";
+
+import SearchPage from "./SearchPage";
 function App() {
   return (
     <>
@@ -16,16 +18,14 @@ function App() {
           }
         ></Route>
         <Route
-          path="/search"
+          path="/mobiles"
           element={
             <>
-              <div className="flex flex-col">
-                <Header />
-                <Search />
-              </div>
+              <SearchPage />
             </>
           }
         ></Route>
+        <Route path="/test" element={<Test />}></Route>
       </Routes>
     </>
   );

@@ -11,8 +11,9 @@ import { MdOutlineSmartToy } from "react-icons/md";
 const SideBarNav = () => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-[246px] h-[340px]   shadow-2xl mr-3">
+      <div className="flex flex-col items-center justify-center w-[246px] h-[340px]   shadow-2xl mr-3 select-none">
         <Nav
+          link="/mobiles"
           category="მობილურები"
           icon={<PiDeviceMobileSpeakerThin size={20} />}
         />
